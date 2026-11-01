@@ -10,7 +10,7 @@
   --bg-sovereign: #09101D;
   --bg-sovereign-elevated: #0E182B;
   --bg-sovereign-card: #121E36;
-  --bg-sovereign-glass: rgba(14, 24, 43, 0.9);
+  --bg-sovereign-glass: rgba(14, 24, 43, 0.94);
 
   /* Архивная бумага (Светлые секции) */
   --bg-parchment: #F5F1E8;
@@ -45,34 +45,39 @@
 
   /* Размеры */
   --container-max: 1360px;
-  --header-height: 78px;
+  --header-height: 76px;
   --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Сброс и защита от горизонтального переполнения на смартфонах */
+/* Сброс и полная защита от горизонтального скролла на любых смартфонах */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-html {
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
   scroll-behavior: smooth;
   font-size: 16px;
   background-color: var(--bg-sovereign);
   color: var(--text-light);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  max-width: 100%;
-  overflow-x: hidden;
 }
 
 body {
   font-family: var(--font-sans);
   line-height: 1.6;
+  position: relative;
+}
+
+.page-wrapper {
+  width: 100%;
   max-width: 100%;
-  overflow-x: hidden;
-  background-color: var(--bg-sovereign);
+  overflow-x: clip;
   position: relative;
 }
 
@@ -169,7 +174,7 @@ button {
 }
 
 /* ==========================================================================
-   2. НАВИГАЦИОННАЯ ШАПКА (БЕЗ ПЕРЕНОСА СТРОК)
+   2. НАВИГАЦИОННАЯ ШАПКА
    ========================================================================== */
 .site-header {
   position: sticky;
@@ -181,12 +186,13 @@ button {
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--line-dark);
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
   transition: background 0.3s var(--ease-editorial), box-shadow 0.3s var(--ease-editorial);
 }
 
 .site-header.is-scrolled {
-  background: rgba(9, 16, 29, 0.96);
+  background: rgba(9, 16, 29, 0.97);
   border-bottom-color: var(--brass-hairline);
   box-shadow: 0 12px 34px rgba(0, 0, 0, 0.4);
 }
@@ -195,16 +201,59 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  gap: 14px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+/* Мобильная полоса быстрой связи (скрыта на ПК, видна сразу в шапке на смартфонах) */
+.mobile-quickbar {
+  display: none;
+  width: 100%;
+  background: rgba(20, 107, 62, 0.16);
+  border-top: 1px solid rgba(53, 194, 121, 0.3);
+  padding: 7px 0;
+}
+
+.mobile-quickbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.mobile-quickbar__phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-light);
+  white-space: nowrap;
+}
+
+.mobile-quickbar__wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  background: #146B3E;
+  color: #ffffff !important;
+  border: 1px solid #35C279;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 
 .brand {
   display: flex;
   align-items: center;
   gap: 12px;
-  flex-shrink: 0;
+  min-width: 0;
 }
 
 .brand__monogram {
@@ -238,6 +287,7 @@ button {
 .brand__text {
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .brand__title {
@@ -373,8 +423,8 @@ button {
 
 .mobile-menu-btn {
   display: none;
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   border: 1px solid var(--brass-hairline-strong);
   align-items: center;
   justify-content: center;
@@ -479,7 +529,7 @@ button {
 
 .hero__title {
   font-family: var(--font-serif);
-  font-size: clamp(2.25rem, 4vw, 3.85rem);
+  font-size: clamp(2.15rem, 4vw, 3.85rem);
   font-weight: 500;
   line-height: 1.08;
   letter-spacing: -0.01em;
@@ -744,7 +794,7 @@ button {
 
 .editorial-title {
   font-family: var(--font-serif);
-  font-size: clamp(1.95rem, 3.2vw, 3rem);
+  font-size: clamp(1.85rem, 3.2vw, 3rem);
   font-weight: 500;
   line-height: 1.12;
 }
@@ -789,6 +839,7 @@ button {
   align-items: center;
   gap: 8px;
   flex-wrap: wrap;
+  min-width: 0;
 }
 
 .codex-tab {
@@ -816,7 +867,7 @@ button {
 
 .codex-search {
   position: relative;
-  flex: 1 1 240px;
+  flex: 1 1 220px;
   max-width: 360px;
   min-width: 0;
 }
@@ -889,7 +940,7 @@ button {
 
 .codex-chapter__title {
   font-family: var(--font-serif);
-  font-size: clamp(1.45rem, 2.2vw, 1.9rem);
+  font-size: clamp(1.4rem, 2.2vw, 1.9rem);
   font-weight: 600;
   color: var(--text-ink);
   line-height: 1.2;
@@ -903,6 +954,7 @@ button {
   background: rgba(197, 160, 89, 0.1);
   color: #6E521C;
   white-space: nowrap;
+  width: fit-content;
 }
 
 .codex-articles-grid {
@@ -954,7 +1006,7 @@ button {
 
 .codex-article__name {
   font-family: var(--font-serif);
-  font-size: 1.28rem;
+  font-size: 1.26rem;
   font-weight: 600;
   color: var(--text-ink);
   line-height: 1.26;
@@ -1138,7 +1190,7 @@ button {
 
 .dossier-title {
   font-family: var(--font-serif);
-  font-size: clamp(1.6rem, 2.5vw, 2rem);
+  font-size: clamp(1.55rem, 2.5vw, 2rem);
   font-weight: 600;
   color: var(--text-light);
   line-height: 1.2;
@@ -1632,7 +1684,7 @@ html[data-theme="light"] {
   --bg-sovereign: #F8F5EE;
   --bg-sovereign-elevated: #FFFFFF;
   --bg-sovereign-card: #F3EFE4;
-  --bg-sovereign-glass: rgba(248, 245, 238, 0.94);
+  --bg-sovereign-glass: rgba(248, 245, 238, 0.96);
 
   --bg-parchment: #EFEAE0;
   --bg-parchment-elevated: #FFFFFF;
@@ -1671,8 +1723,13 @@ html[data-theme="light"] .registry-link:hover {
 }
 
 html[data-theme="light"] .site-header.is-scrolled {
-  background: rgba(248, 245, 238, 0.97);
+  background: rgba(248, 245, 238, 0.98);
   box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+}
+
+html[data-theme="light"] .mobile-quickbar {
+  background: rgba(20, 107, 62, 0.1);
+  border-top-color: rgba(20, 107, 62, 0.25);
 }
 
 html[data-theme="light"] .brand__monogram {
@@ -1710,7 +1767,7 @@ html[data-theme="light"] .btn--outline-brass:hover {
   color: #0F172A;
 }
 
-/* Исправление выпадающего списка <select> и <option> в светлой теме */
+/* Выпадающий список <select> и <option> в светлой теме */
 html[data-theme="light"] .form-control {
   background-color: #FFFFFF;
   color: #0F172A;
@@ -1756,6 +1813,7 @@ html[data-theme="light"] .site-footer__list a {
     gap: 14px;
     align-items: flex-start;
     box-shadow: 0 18px 36px rgba(0, 0, 0, 0.35);
+    z-index: 150;
   }
 
   .mobile-menu-btn {
@@ -1795,10 +1853,9 @@ html[data-theme="light"] .site-footer__list a {
 
 @media (max-width: 768px) {
   .container {
-    padding: 0 14px;
+    padding: 0 16px;
   }
 
-  /* Убираем выступающие засечки и боковые рамки на узких экранах смартфонов */
   .crosshair {
     display: none;
   }
@@ -1808,26 +1865,44 @@ html[data-theme="light"] .site-footer__list a {
     border-right: none;
   }
 
+  /* На смартфоне делаем верхнюю полосу в 1 компактную строку */
   .registry-ribbon__right,
-  .registry-tag--address {
+  .registry-tag--address,
+  .registry-tag--cert {
     display: none;
   }
 
-  .registry-ribbon__items {
-    gap: 8px;
-  }
-
   .registry-tag {
-    font-size: 0.66rem;
+    font-size: 0.65rem;
   }
 
+  /* В шапке на смартфоне оставляем логотип, тему и кнопку меню в 1 ряд + нижнюю полосу быстрой связи */
   .header-phone,
   .header-cta-btn {
     display: none;
   }
 
+  .mobile-quickbar {
+    display: block;
+  }
+
+  /* Нижний плавающий блок скрываем на мобильном, т.к. кнопка WhatsApp и телефон теперь всегда закреплены в шапке */
+  .floating-dock {
+    display: none;
+  }
+
   .site-header {
-    min-height: 64px;
+    min-height: auto;
+  }
+
+  .site-header__inner {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    gap: 8px;
+  }
+
+  .brand {
+    gap: 10px;
   }
 
   .brand__monogram {
@@ -1840,11 +1915,11 @@ html[data-theme="light"] .site-footer__list a {
   }
 
   .brand__title {
-    font-size: 1.02rem;
+    font-size: 1rem;
   }
 
   .brand__subtitle {
-    font-size: 0.6rem;
+    font-size: 0.58rem;
   }
 
   .theme-toggle {
@@ -1852,21 +1927,25 @@ html[data-theme="light"] .site-footer__list a {
     font-size: 0.68rem;
   }
 
+  .theme-toggle__label {
+    display: none;
+  }
+
   .section-pad {
-    padding: 44px 0;
+    padding: 40px 0;
   }
 
   .hero__content,
   .hero__visual {
-    padding: 28px 0;
+    padding: 26px 0;
   }
 
   .hero__title {
-    font-size: 2.05rem;
+    font-size: 2rem;
   }
 
   .hero__person-name {
-    font-size: 1.25rem;
+    font-size: 1.24rem;
   }
 
   .hero__cta-row .btn {
@@ -1911,6 +1990,7 @@ html[data-theme="light"] .site-footer__list a {
   .codex-search {
     max-width: 100%;
     width: 100%;
+    flex: 1 1 100%;
   }
 
   .codex-chapter__head,
@@ -1935,20 +2015,5 @@ html[data-theme="light"] .site-footer__list a {
   .portrait-frame__caption {
     position: static;
     margin-top: 10px;
-  }
-
-  .site-footer {
-    padding-bottom: 84px;
-  }
-
-  .floating-dock {
-    bottom: 14px;
-    right: 14px;
-    left: auto;
-  }
-
-  .floating-dock__btn {
-    padding: 10px 14px;
-    font-size: 0.7rem;
   }
 }
