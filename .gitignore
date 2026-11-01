@@ -1,0 +1,10 @@
+.env
+.env.*
+.netlify
+deploy.py
+ИНСТРУКЦИЯ_NETLIFY_И_HOSTER_KZ.md
+ТЗ и данные для сайта/
+notarius-mediator-netlify.zip
+netlify-drop-folder/
+.DS_Store
+Thumbs.db
